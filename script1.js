@@ -36,7 +36,7 @@ const displayCats = (trees) => {
   trees.forEach((tree) => {
     const treeCard = document.createElement("div");
     treeCard.innerHTML = `
-      <div class="rounded-lg bg-white p-4 w-[300px] mx-auto">
+      <div class="rounded-lg bg-white p-4">
         <img class="w-[300px] h-[200px] rounded-lg mb-4" src="${tree.image}" alt="">
         <h1 class="text-lg font-semibold mb-4">${tree.name}</h1>
         <p class="text-sm text-gray-700 mb-4">${tree.description}</p>
