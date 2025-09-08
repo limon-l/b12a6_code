@@ -36,7 +36,7 @@ const displayCats = (trees) => {
   trees.forEach((tree) => {
     const treeCard = document.createElement("div");
     treeCard.innerHTML = `
-      <div class="rounded-lg bg-white p-4 w-[300px] mx-auto">
+      <div class="rounded-lg bg-white p-4 w-[300px] mx-auto md:mb-0 mb-5">
         <img class="w-[300px] h-[200px] rounded-lg mb-4" src="${tree.image}" alt="">
         <h1 class="text-lg font-semibold mb-4">${tree.name}</h1>
         <p class="text-sm text-gray-700 mb-4">${tree.description}</p>
@@ -46,9 +46,12 @@ const displayCats = (trees) => {
           </p>
           <p class="font-bold">৳ ${tree.price}</p>
         </div>
-        <div class="text-white bg-green-700 py-2 rounded-3xl text-center">
-          <button class=""><a href="">Add To Cart</a></button>
-        </div>
+
+        <div class="text-white bg-green-700 py-2 rounded-3xl text-center cursor-pointer">
+        <button onclick="addToCart(${tree.id}, '${tree.name}', ${tree.price})">
+  Add To Cart
+</button>
+</div>
       </div>
     `;
     plantContainer.appendChild(treeCard);
@@ -62,7 +65,7 @@ const displayCategories = (category) => {
   const allBtn = document.createElement("div");
   allBtn.innerHTML = `
     <button onclick="loadAllPlants()" 
-            class="cat-btn all-btn hover:text-white text-left hover:bg-green-700 rounded p-2 my-0.5 w-full cursor-pointer">
+            class="cat-btn all-btn hover:text-white text-left hover:bg-green-700 rounded p-2 my-1 mt-4 w-full cursor-pointer">
       All Trees
     </button>
   `;
@@ -72,7 +75,7 @@ const displayCategories = (category) => {
     const btnDiv = document.createElement("div");
     btnDiv.innerHTML = `
       <button onclick="loadCats(${cats.id}, this)" 
-              class="cat-btn hover:text-white text-left hover:bg-green-700 rounded p-2 my-0.5 w-full cursor-pointer">
+              class="cat-btn hover:text-white text-left hover:bg-green-700 rounded p-2 my-1 w-full cursor-pointer">
         ${cats.category_name}
       </button>
     `;
@@ -95,3 +98,57 @@ const setLoading = (status) => {
 };
 
 loadCategories();
+
+let cart = [];
+
+function addToCart(id, name, price) {
+  let found = cart.find((item) => item.id === id);
+
+  if (found) {
+    found.quantity++;
+  } else {
+    cart.push({
+      id: id,
+      name: name,
+      price: price,
+      quantity: 1,
+    });
+  }
+
+  alert(name + " added to cart...");
+  renderCart();
+}
+
+function removeFromCart(id) {
+  cart = cart.filter((item) => item.id !== id);
+  renderCart();
+}
+
+function renderCart() {
+  const cartItems = document.getElementById("cart-items");
+  const cartTotal = document.getElementById("cart-total");
+
+  cartItems.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((item) => {
+    total += item.price * item.quantity;
+
+    let div = document.createElement("div");
+    div.className =
+      "flex justify-between items-center bg-green-50 p-2 mb-2 rounded";
+
+    div.innerHTML = `
+      <div>
+        <p class="font-medium">${item.name}</p>
+        <p class="text-sm text-gray-600">৳${item.price} × ${item.quantity}</p>
+      </div>
+      <button onclick="removeFromCart(${item.id})" 
+              class="text-red-500 font-bold text-lg cursor-pointer">❌</button>
+    `;
+
+    cartItems.appendChild(div);
+  });
+
+  cartTotal.textContent = total;
+}
