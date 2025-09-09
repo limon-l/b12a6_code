@@ -28,10 +28,11 @@
             <div class="text-white list-none flex md:py-0 py-3">
                 <li class="mx-3"><a href="#about">About</a></li>
                 <li class="mx-3"><a href="#">Gallery</a></li>
-                <li class="mx-3"><a href="#">Plant a Tree</a></li>
+                <li class="mx-3"><a href="#platTree">Plant a Tree</a></li>
             </div>
-            <div class="bg-yellow-400 px-4 py-2 rounded-3xl">
-                <button class="text-green-700 text-md"><a href="#">Plant a Tree</a></button>
+            <div
+                class="bg-yellow-400 px-4 py-2 rounded-3xl text-green-700 hover:bg-green-500 hover:text-white cursor-pointer">
+                <button class=" text-md"><a href="#platTree">Plant a Tree</a></button>
             </div>
         </section>
 
@@ -49,8 +50,9 @@
                     Join our mission to plant 1 million trees and make the Earth greener for future
                     generations.
                 </p>
-                <button class="text-green-700 text-md bg-yellow-400 px-4 py-2 rounded-3xl"><a href="#">Get
-                        Involved</a></button>
+                <button class="bg-yellow-400 px-4 py-2 rounded-3xl text-green-700 hover:bg-green-500 hover:text-white
+                cursor-pointer text-md"><a href="#platTree">Get Invloved</a></button>
+
             </div>
             <div class="">
                 <img src="assets/hero-leaf2.png" alt="hero-leaf2">
@@ -126,11 +128,58 @@
                 </div>
             </div>
         </section>
+
+        <!-- Impact Section -->
+
+        <section class="bg-green-100 py-20">
+            <h1 class="text-4xl text-center mb-14 font-bold">Our Impact</h1>
+            <div class="flex md:flex-row flex-col justify-center items-center gap-12 mt-16">
+                <div
+                    class="py-10 px-32 bg-white text-center rounded-lg flex flex-col justify-center items-start shadow">
+                    <h1 class="font-bold text-4xl mb-2 text-green-700">500K+</h1>
+                    <p class="text-gray-500">Trees Planted</p>
+                </div>
+                <div
+                    class="py-10 px-32 bg-white text-center rounded-lg flex flex-col justify-center items-center shadow">
+                    <h1 class="font-bold text-4xl mb-2 text-green-700">120+</h1>
+                    <p class="text-gray-500">Communities Involved</p>
+                </div>
+                <div
+                    class="py-10 px-32 bg-white text-center rounded-lg flex flex-col justify-center items-center shadow">
+                    <h1 class="font-bold text-4xl mb-2 text-green-700">30+</h1>
+                    <p class="text-gray-500">Countries Reached</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form section  -->
+
+        <section id="platTree" class="py-16 bg-green-800">
+            <h1 class="text-3xl text-center mb-14 text-white font-bold mt-16">Plant a Tree Today</h1>
+            <div class="max-w-[600px] mx-auto bg-green-700 p-10 rounded-lg">
+                <form id="involvement-form" class="flex flex-col gap-6">
+                    <input class="p-3 rounded-lg  bg-white" type="text" name="name" id="name" placeholder="Your Name"
+                        required>
+                    <input class="p-3 rounded-lg bg-white" type="email" name="email" id="email"
+                        placeholder="Your Email Address" required>
+                    <select class="p-3 rounded-lg bg-white" name="trees" id="trees" required>
+                        <option value="" disabled selected>Number of Trees</option>
+                        <option value="1-10">1-10</option>
+                        <option value="11-50">11-50</option>
+                        <option value="51-100">51-100</option>
+                        <option value="100+">100+</option>
+                    </select>
+                    <button
+                        class="bg-yellow-400 text-green-700 text-lg py-3 rounded-3xl hover:bg-green-800 hover:text-white cursor-pointer"
+                        type="submit">Donate Now</button>
+                </form>
+            </div>
+        </section>
     </main>
     <!-- Footer Section  -->
     <footer>
         <div class="bg-green-900 text-white text-center p-4">
-            <p>&copy; 2024 Green Earth. All rights reserved.</p>
+            <p>&copy; 2025 Green Earth. All Rights Reserved.</p>
         </div>
     </footer>
 

@@ -168,7 +168,7 @@ const body = document.querySelector("body");
 const modalDiv = document.createElement("div");
 modalDiv.id = "treeModal";
 modalDiv.className =
-  "hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50";
+  "hidden fixed inset-0 bg-black/50 md:p-0 p-5 flex items-center justify-center z-50";
 body.appendChild(modalDiv);
 
 const modal = document.getElementById("treeModal");
@@ -189,17 +189,11 @@ document
 
     modal.innerHTML = `
     <div class="bg-white p-6 rounded-lg w-[600px] relative">
-      <h2 class="text-xl font-bold mb-4">${tree.name}</h2>
-      <img class="w-full h-[300px] object-cover rounded mb-4" src="${
-        tree.image
-      }" alt="${tree.name}">
-      <p class="mb-2"> <span class="font-bold">Category: </span>${
-        tree.category
-      }</p>
+      <h2 class="text-3xl font-bold mb-4">${tree.name}</h2>
+      <img class="w-full h-[300px] object-cover rounded mb-4" src="${tree.image}" alt="${tree.name}">
+      <p class="mb-2"> <span class="font-bold">Category: </span>${tree.category}</p>
       <p class="mb-2"><span class="font-bold">Price: ৳ </span>${tree.price}</p>
-      <p class="mb-10"><span class="font-bold">Description: </span>${
-        tree.description || tree.small_description
-      }</p>
+      <p class="mb-10"><span class="font-bold">Description: </span>${tree.description}</p>
       <button id="closeModal" class="absolute right-4 bottom-2 px-4 py-2 mt-2 bg-green-700 text-white rounded-lg text-xl cursor-pointer">Close</button>
     </div>
   `;
