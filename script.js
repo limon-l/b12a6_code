@@ -7,24 +7,24 @@ const loadCategories = () => {
 };
 
 const loadAllPlants = () => {
-  setLoading(true);
+  loading(true);
   fetch("https://openapi.programming-hero.com/api/plants")
     .then((res) => res.json())
     .then((json) => {
       displayCats(json.plants);
-      setLoading(false);
+      loading(false);
       const allBtn = document.querySelector(".all-btn");
       if (allBtn) setActiveCategory(allBtn);
     });
 };
 
 const loadCats = (id, btn) => {
-  setLoading(true);
+  loading(true);
   fetch(`https://openapi.programming-hero.com/api/category/${id}`)
     .then((res) => res.json())
     .then((json) => {
       displayCats(json.plants);
-      setLoading(false);
+      loading(false);
       setActiveCategory(btn);
     });
 };
@@ -36,9 +36,9 @@ const displayCats = (trees) => {
   trees.forEach((tree) => {
     const treeCard = document.createElement("div");
     treeCard.innerHTML = `
-      <div class="rounded-lg bg-white p-4 w-[300px] mx-auto md:mb-0 mb-5">
+      <div class="rounded-lg bg-white p-4 w-[300px] h-full mx-auto md:mb-0 mb-5 flex flex-col justify-between">
         <img class="w-[300px] h-[200px] rounded-lg mb-4" src="${tree.image}" alt="">
-        <h1 class="text-lg font-semibold mb-4">${tree.name}</h1>
+        <h1 class="text-lg font-semibold mb-4 inter-font">${tree.name}</h1>
         <p class="text-sm text-gray-700 mb-4">${tree.description}</p>
         <div class="flex justify-between mb-4">
           <p class="bg-green-200 text-green-700 px-3 py-0.5 rounded-3xl">
@@ -47,8 +47,8 @@ const displayCats = (trees) => {
           <p class="font-bold">৳ ${tree.price}</p>
         </div>
 
-        <div class="text-white bg-green-700 py-2 rounded-3xl text-center cursor-pointer">
-        <button onclick="addToCart(${tree.id}, '${tree.name}', ${tree.price})">
+        <div onclick="addToCart(${tree.id}, '${tree.name}', ${tree.price})" class="text-white bg-green-700 hover:bg-white hover:text-green-700 hover:border-green-700 hover:border-[2px] py-2 rounded-3xl text-center cursor-pointer">
+        <button>
   Add To Cart
 </button>
 </div>
@@ -65,7 +65,7 @@ const displayCategories = (category) => {
   const allBtn = document.createElement("div");
   allBtn.innerHTML = `
     <button onclick="loadAllPlants()" 
-            class="cat-btn all-btn hover:text-white text-left hover:bg-green-700 rounded p-2 my-1 mt-4 w-full cursor-pointer">
+            class="cat-btn all-btn text-xl hover:text-white text-left hover:bg-green-700 rounded p-2 my-1 mt-4 w-full cursor-pointer">
       All Trees
     </button>
   `;
@@ -75,7 +75,7 @@ const displayCategories = (category) => {
     const btnDiv = document.createElement("div");
     btnDiv.innerHTML = `
       <button onclick="loadCats(${cats.id}, this)" 
-              class="cat-btn hover:text-white text-left hover:bg-green-700 rounded p-2 my-1 w-full cursor-pointer">
+              class="cat-btn text-xl hover:text-white text-left hover:bg-green-700 rounded p-2 my-1 w-full cursor-pointer">
         ${cats.category_name}
       </button>
     `;
@@ -90,10 +90,12 @@ const setActiveCategory = (btn) => {
   btn.classList.add("bg-green-700", "text-white");
 };
 
-const setLoading = (status) => {
+const loading = (el) => {
   const container = document.getElementById("plant-container");
-  if (status) {
-    container.innerHTML = `<i class="fa-solid fa-spinner"></i>`;
+  if (el) {
+    container.innerHTML = `<div class="w-[300px] flex justify-center items-center">
+          <i class="fa-solid fa-spinner text-center text-5xl md:pl-[300px] pl-0"></i>
+    </div>`;
   }
 };
 
@@ -119,7 +121,7 @@ function addToCart(id, name, price) {
   renderCart();
 }
 
-function removeFromCart(id) {
+function removeCart(id) {
   cart = cart.filter((item) => item.id !== id);
   renderCart();
 }
@@ -135,16 +137,16 @@ function renderCart() {
     total += item.price * item.quantity;
 
     let div = document.createElement("div");
-    div.className =
-      "flex justify-between items-center bg-green-50 p-2 mb-2 rounded";
 
     div.innerHTML = `
-      <div>
-        <p class="font-medium">${item.name}</p>
-        <p class="text-sm text-gray-600">৳${item.price} × ${item.quantity}</p>
+      <div class="flex justify-between items-center bg-green-50 p-4 mb-2 rounded">
+        <div>
+          <p class="font-medium text-xl inter-font">${item.name}</p>
+          <p class="text-lg text-gray-600">৳${item.price} × ${item.quantity}</p>
+        </div>
+        <button onclick="removeCart(${item.id})" 
+                class="text-red-500 font-bold text-lg cursor-pointer">❌</button>
       </div>
-      <button onclick="removeFromCart(${item.id})" 
-              class="text-red-500 font-bold text-lg cursor-pointer">❌</button>
     `;
 
     cartItems.appendChild(div);
