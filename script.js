@@ -181,8 +181,8 @@ document
 
     const treeName = el.textContent;
 
-    const res = fetch("https://openapi.programming-hero.com/api/plants");
-    const data = res.json();
+    const res = await fetch("https://openapi.programming-hero.com/api/plants");
+    const data = await res.json();
     const tree = data.plants.find((p) => p.name === treeName);
 
     if (!tree) return;
