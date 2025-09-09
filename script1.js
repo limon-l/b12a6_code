@@ -45,12 +45,12 @@ const displayCats = (trees) => {
 
     const treeCard = document.createElement("div");
     treeCard.innerHTML = `
-      <div class="rounded-lg bg-white p-4 w-[300px] h-full mx-auto md:mb-0 mb-5 flex flex-col justify-between">
-        <img class="w-[300px] h-[200px] rounded-lg mb-4" src="${tree.image}" alt="">
+      <div class="rounded-lg bg-white p-4 w-[250px] h-full mx-auto md:mb-0 mb-8 flex flex-col justify-between">
+        <img class="w-[250px] h-[200px] rounded-lg mb-4" src="${tree.image}" alt="">
         <h1  id="treesContainer" class="text-lg font-semibold mb-4 inter-font cursor-pointer">${tree.name}</h1>
-        <p class="text-md text-gray-700 mb-4">${matched.small_description}</p>
+        <p class="text-sm text-gray-700 mb-4">${matched.small_description}</p>
         <div class="flex justify-between mb-4">
-          <p class="bg-green-200 text-green-700 px-3 py-0.5 rounded-3xl">
+          <p class="bg-green-200 text-green-700 px-3 py-0.5 rounded-3xl text-sm">
             ${tree.category}
           </p>
           <p class="font-bold">৳ ${tree.price}</p>
@@ -58,7 +58,7 @@ const displayCats = (trees) => {
 
         <div onclick="addToCart(${tree.id}, '${tree.name}', ${tree.price})" 
              class="text-white bg-green-700 hover:bg-white hover:text-green-700 hover:border-green-700 hover:border-[2px] py-2 m-1 hover:m-0 rounded-3xl text-center cursor-pointer">
-          <button class="cursor-pointer">Add To Cart</button>
+          <button class="cursor-pointer text-md">Add To Cart</button>
         </div>
       </div>
     `;
@@ -73,7 +73,7 @@ const displayCategories = (category) => {
   const allBtn = document.createElement("div");
   allBtn.innerHTML = `
     <button onclick="loadAllPlants()" 
-            class="cat-btn all-btn text-xl hover:text-white text-left hover:bg-green-700 rounded p-2 my-1 mt-4 w-full cursor-pointer">
+            class="cat-btn all-btn text-lg hover:text-white text-left hover:bg-green-700 rounded p-2 my-1 mt-4 w-[200px] cursor-pointer">
       All Trees
     </button>
   `;
@@ -83,7 +83,7 @@ const displayCategories = (category) => {
     const btnDiv = document.createElement("div");
     btnDiv.innerHTML = `
       <button onclick="loadCats(${cats.id}, this)" 
-              class="cat-btn text-xl hover:text-white text-left hover:bg-green-700 rounded p-2 my-1 w-full cursor-pointer">
+              class="cat-btn text-lg hover:text-white text-left hover:bg-green-700 rounded p-2 my-1 w-[200px] cursor-pointer">
         ${cats.category_name}
       </button>
     `;
@@ -149,8 +149,8 @@ function renderCart() {
     div.innerHTML = `
       <div class="flex justify-between items-center bg-green-50 p-4 mb-2 rounded">
         <div>
-          <p class="font-medium text-xl inter-font">${item.name}</p>
-          <p class="text-lg text-gray-600">৳${item.price} × ${item.quantity}</p>
+          <p class="font-medium text-lg inter-font">${item.name}</p>
+          <p class="text-sm text-gray-600">৳${item.price} × ${item.quantity}</p>
         </div>
         <button onclick="removeCart(${item.id})" 
                 class="text-red-500 font-bold text-lg cursor-pointer">❌</button>
