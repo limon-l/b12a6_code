@@ -58,7 +58,7 @@ const displayCats = (trees) => {
 
         <div onclick="addToCart(${tree.id}, '${tree.name}', ${tree.price})" 
              class="text-white bg-green-700 hover:bg-white hover:text-green-700 hover:border-green-700 hover:border-[2px] py-2 m-1 hover:m-0 rounded-3xl text-center cursor-pointer">
-          <button>Add To Cart</button>
+          <button class="cursor-pointer">Add To Cart</button>
         </div>
       </div>
     `;
@@ -163,58 +163,54 @@ function renderCart() {
   cartTotal.textContent = "৳ " + total;
 }
 
-// Create modal container dynamically
+// Modal Functionality
 const body = document.querySelector("body");
 const modalDiv = document.createElement("div");
 modalDiv.id = "treeModal";
 modalDiv.className =
   "hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50";
-modalDiv.innerHTML = `
-  <div class="bg-white p-6 rounded-lg w-[600px] relative">
-    <img id="modalImage" class="w-full h-[300px] object-cover rounded mb-4" src="" alt="">
-    <h2 id="modalName" class="text-xl font-bold mb-2"></h2>
-    <p id="modalType" class="text-green-700 mb-2 font-medium"></p>
-    <p id="modalDesc" class="text-gray-600 mb-6"></p>
-    <button id="closeModal" class="absolute right-4 bottom-2 p-2 mt-4 bg-green-700 text-yellow-300 rounded-lg font-bold text-xl cursor-pointer">Close</button>
-  </div>
-`;
 body.appendChild(modalDiv);
 
-// Modal elements
 const modal = document.getElementById("treeModal");
-const modalImage = document.getElementById("modalImage");
-const modalName = document.getElementById("modalName");
-const modalType = document.getElementById("modalType");
-const modalDesc = document.getElementById("modalDesc");
-const closeModal = document.getElementById("closeModal");
 
-// Event delegation on plant container
 document
   .getElementById("plant-container")
   .addEventListener("click", async (e) => {
-    const el = e.target.closest("h1"); // tree name clicked
+    const el = e.target.closest("h1");
     if (!el) return;
 
     const treeName = el.textContent;
 
-    // Fetch all plants and find the clicked one
     const res = await fetch("https://openapi.programming-hero.com/api/plants");
     const data = await res.json();
     const tree = data.plants.find((p) => p.name === treeName);
 
     if (!tree) return;
 
-    // Fill modal
-    modalImage.src = tree.image;
-    modalName.textContent = tree.name;
-    modalType.textContent = tree.category; // type
-    modalDesc.textContent = tree.description || tree.small_description; // description
+    modal.innerHTML = `
+    <div class="bg-white p-6 rounded-lg w-[600px] relative">
+      <h2 class="text-xl font-bold mb-4">${tree.name}</h2>
+      <img class="w-full h-[300px] object-cover rounded mb-4" src="${
+        tree.image
+      }" alt="${tree.name}">
+      <p class="mb-2"> <span class="font-bold">Category: </span>${
+        tree.category
+      }</p>
+      <p class="mb-2"><span class="font-bold">Price: ৳ </span>${tree.price}</p>
+      <p class="mb-10"><span class="font-bold">Description: </span>${
+        tree.description || tree.small_description
+      }</p>
+      <button id="closeModal" class="absolute right-4 bottom-2 px-4 py-2 mt-2 bg-green-700 text-white rounded-lg text-xl cursor-pointer">Close</button>
+    </div>
+  `;
 
-    // Show modal
     modal.classList.remove("hidden");
+
+    document.getElementById("closeModal").addEventListener("click", () => {
+      modal.classList.add("hidden");
+    });
   });
 
-// Close modal
 closeModal.addEventListener("click", () => {
   modal.classList.add("hidden");
 });
