@@ -1,7 +1,12 @@
+let allCategories = [];
+
 const loadCategories = () => {
   fetch("https://openapi.programming-hero.com/api/categories")
     .then((res) => res.json())
-    .then((json) => displayCategories(json.categories));
+    .then((json) => {
+      allCategories = json.categories;
+      displayCategories(json.categories);
+    });
 
   loadAllPlants();
 };
@@ -14,7 +19,7 @@ const loadAllPlants = () => {
       displayCats(json.plants);
       loading(false);
       const allBtn = document.querySelector(".all-btn");
-      if (allBtn) setActiveCategory(allBtn);
+      if (allBtn) setActive(allBtn);
     });
 };
 
@@ -25,7 +30,7 @@ const loadCats = (id, btn) => {
     .then((json) => {
       displayCats(json.plants);
       loading(false);
-      setActiveCategory(btn);
+      setActive(btn);
     });
 };
 
@@ -34,12 +39,16 @@ const displayCats = (trees) => {
   plantContainer.innerHTML = "";
 
   trees.forEach((tree) => {
+    const matched = allCategories.find(
+      (cat) => cat.category_name === tree.category
+    );
+
     const treeCard = document.createElement("div");
     treeCard.innerHTML = `
       <div class="rounded-lg bg-white p-4 w-[300px] h-full mx-auto md:mb-0 mb-5 flex flex-col justify-between">
         <img class="w-[300px] h-[200px] rounded-lg mb-4" src="${tree.image}" alt="">
-        <h1 class="text-lg font-semibold mb-4 inter-font">${tree.name}</h1>
-        <p class="text-sm text-gray-700 mb-4">${tree.description}</p>
+        <h1  id="treesContainer" class="text-lg font-semibold mb-4 inter-font cursor-pointer">${tree.name}</h1>
+        <p class="text-md text-gray-700 mb-4">${matched.small_description}</p>
         <div class="flex justify-between mb-4">
           <p class="bg-green-200 text-green-700 px-3 py-0.5 rounded-3xl">
             ${tree.category}
@@ -47,11 +56,10 @@ const displayCats = (trees) => {
           <p class="font-bold">৳ ${tree.price}</p>
         </div>
 
-        <div onclick="addToCart(${tree.id}, '${tree.name}', ${tree.price})" class="text-white bg-green-700 hover:bg-white hover:text-green-700 hover:border-green-700 hover:border-[2px] py-2 rounded-3xl text-center cursor-pointer">
-        <button>
-  Add To Cart
-</button>
-</div>
+        <div onclick="addToCart(${tree.id}, '${tree.name}', ${tree.price})" 
+             class="text-white bg-green-700 hover:bg-white hover:text-green-700 hover:border-green-700 hover:border-[2px] py-2 m-1 hover:m-0 rounded-3xl text-center cursor-pointer">
+          <button>Add To Cart</button>
+        </div>
       </div>
     `;
     plantContainer.appendChild(treeCard);
@@ -83,7 +91,7 @@ const displayCategories = (category) => {
   }
 };
 
-const setActiveCategory = (btn) => {
+const setActive = (btn) => {
   document.querySelectorAll(".cat-btn").forEach((b) => {
     b.classList.remove("bg-green-700", "text-white");
   });
@@ -152,5 +160,5 @@ function renderCart() {
     cartItems.appendChild(div);
   });
 
-  cartTotal.textContent = total;
+  cartTotal.textContent = "৳ " + total;
 }
