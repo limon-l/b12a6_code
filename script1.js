@@ -45,11 +45,11 @@ const displayCats = (trees) => {
 
     const treeCard = document.createElement("div");
     treeCard.innerHTML = `
-      <div class="rounded-lg bg-white p-4 w-[250px] h-full mx-auto md:mb-0 mb-8 flex flex-col justify-between">
-        <img class="w-[250px] h-[200px] rounded-lg mb-4" src="${tree.image}" alt="">
-        <h1  id="treesContainer" class="text-lg font-semibold mb-4 inter-font cursor-pointer">${tree.name}</h1>
-        <p class="text-sm text-gray-700 mb-4">${matched.small_description}</p>
-        <div class="flex justify-between mb-4">
+      <div class="rounded-lg bg-white p-4 w-[250px] h-full flex flex-col justify-between">
+        <img class="w-[250px] h-[200px] rounded-lg md:mb-4 mb-2" src="${tree.image}" alt="">
+        <h1  id="treesContainer" class="text-lg font-semibold md:mb-4 mb-2 inter-font cursor-pointer">${tree.name}</h1>
+        <p class="text-sm text-gray-700 md:mb-4 mb-2">${matched.small_description}</p>
+        <div class="flex justify-between md:mb-4 mb-2">
           <p class="bg-green-200 text-green-700 px-3 py-0.5 rounded-3xl text-sm">
             ${tree.category}
           </p>
